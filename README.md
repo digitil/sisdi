@@ -55,7 +55,7 @@ When a function is downloaded, its function path and version will be recorded in
 
 **Managing dependencies manually**
 
-You can manually install/update dependencies defined in .sisdi.source by adding new depenedencies and running `sisdi install` with no arguments.
+You can manually install/update dependencies defined in .sisdi.source by adding new dependencies and running `sisdi install` with no arguments.
 Dependencies will then be installed or updated accordingly.
 
 
@@ -65,10 +65,10 @@ Dependencies will then be installed or updated accordingly.
 
     #!/bin/sh
 
-    # sisdi provides the *import* function
-    # use import to require other shell functions in your script
-    # the extension need not be specified
-    import digitil/argparse
+    # sisdi provides the `requires` function
+    # use `requires` to require other shell functions in your script
+    # note: the extension (e.g. sh, bash, etc.) need not be specified
+    requires digitil/argparse
 
     # use newly imported function as a part of your script
     argparse count=[7] dry-run=[true]
