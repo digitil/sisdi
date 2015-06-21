@@ -11,6 +11,13 @@ teardown() {
     rm $tempfile
 }
 
+@test "sisdi --version prints semantic version" {
+    run sisdi --version
+
+    [ "$status" -eq 0 ]
+    expr "${lines[0]}" : '^\([1-9]\{1,2\}\.[0-9]\.[0-9]\)$'
+}
+
 @test "install fails on unrecognized option" {
     run sisdi install --unrecognized
 

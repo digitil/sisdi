@@ -5,22 +5,18 @@ set -o errexit
 readonly bindir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 readonly version=1.0.0
 
-
+# set -x
 install() {
     while test ${#} -gt 0
     do
         case $1 in
             --install-dir )
                 install_dir=$2
-                test -d "$install_dir" || {
-                    echo "Directory not found: $install_dir";
-                    exit 1
-                }
+                test -d "$install_dir" || throw 1 "Directory not found: $install_dir"
                 shift
                 ;;
             * )
-                echo "Unrecognized option to install: '$1'"
-                exit 1
+                throw 1 "Unrecognized option to install: '$1'"
                 ;;
         esac
         shift
@@ -30,7 +26,29 @@ install() {
 
     ln -s $bindir/bin_exec/requires $install_dir/requires
 
-    exit
+    # wrapper="requires() { exec \"\$($bindir/bin_exec/requires \${@})\"; }"
+
+    # rcfile=$(find_writable "$HOME/.bashrc" "$HOME/.bash_profile" "$HOME/.profile")
+
+    # [ $? -ne 0 ] && throw 1 "Could not find writable bashrc file"
+
+    # echo -e "\n$wrapper" >> "$rcfile"
+    exit 0
+}
+
+# find_writable() {
+#     for file in "${@}"; do
+#         [ -w "$file" ] && {
+#             echo "$file";
+#             return 0;
+#         }
+#     done
+#     return 1
+# }
+
+throw() { local code=$1; local message=$2;
+    >&2 echo -e $message
+    exit $code
 }
 
 while test ${#} -gt 0

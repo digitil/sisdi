@@ -68,7 +68,7 @@ Dependencies will then be installed or updated accordingly.
     # sisdi provides the `requires` function
     # use `requires` to require other shell functions in your script
     # note: the extension (e.g. sh, bash, etc.) need not be specified
-    requires digitil/argparse
+    eval "`requires digitil/argparse`"
 
     # use newly imported function as a part of your script
     argparse count=[7] dry-run=[true]
